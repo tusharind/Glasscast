@@ -125,6 +125,7 @@ struct AuthView: View {
                                 ? "Create Account" : "Access Weather"
                         )
                         .fontWeight(.semibold)
+                        .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                     }
                 }

@@ -85,9 +85,9 @@ This project was developed using an **AI-First** methodology.
 
 | Login Screen | Home (Weather) |
 |---|---|
-| ![Login Placeholder](https://via.placeholder.com/300x600?text=Login+Screen) | ![Weather Placeholder](https://via.placeholder.com/300x600?text=Home+Screen) |
+| ![Login Screen](./GlasscastApp/Screenshots/login.png) | ![Home Screen](./GlasscastApp/Screenshots/home.png) |
 
-*(Note: Replace placeholders with actual screenshots from the simulator)*
+
 
 ---
 
