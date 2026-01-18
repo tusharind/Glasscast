@@ -74,6 +74,11 @@ struct HomeView: View {
                                 favoritesRow
                             }
 
+                            // Forecast Row
+                            if let forecast = weather.forecast {
+                                forecastRow(days: forecast.forecastday)
+                            }
+
                             // Details Grid
                             detailsGrid(current: weather.current)
                         }
@@ -224,6 +229,51 @@ struct HomeView: View {
         }
     }
 
+    private func forecastRow(days: [ForecastDay]) -> some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("5-Day Forecast")
+                .font(.headline)
+                .foregroundColor(Color.theme(.secondaryText))
+                .padding(.horizontal)
+            
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 12) {
+                    ForEach(days) { day in
+                        forecastCard(day: day)
+                    }
+                }
+                .padding(.horizontal)
+            }
+        }
+    }
+    
+    private func forecastCard(day: ForecastDay) -> some View {
+        VStack(spacing: 8) {
+            Text(day.date.toDate()?.dayOfWeek() ?? day.date)
+                .font(.caption)
+                .fontWeight(.bold)
+                .foregroundColor(.white)
+            
+            Image(systemName: day.day.condition.symbolName)
+                .font(.title2)
+                .symbolRenderingMode(.multicolor)
+            
+            VStack(spacing: 2) {
+                Text("\(Int(settings.isFahrenheit ? day.day.maxtempF : day.day.maxtempC))°")
+                    .font(.subheadline)
+                    .fontWeight(.bold)
+                Text("\(Int(settings.isFahrenheit ? day.day.mintempF : day.day.mintempC))°")
+                    .font(.caption2)
+                    .opacity(0.8)
+            }
+            .foregroundColor(.white)
+        }
+        .padding(.vertical, 16)
+        .padding(.horizontal, 12)
+        .frame(width: 80)
+        .glassEffect(cornerRadius: 20)
+    }
+    
     private func headerView(location: Location) -> some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(location.name)
@@ -237,7 +287,7 @@ struct HomeView: View {
     }
 
     private func mainWeatherCard(current: Current) -> some View {
-        VStack(spacing: 12) {
+        VStack(spacing: 8) {
             // Icon
             AsyncImage(url: URL(string: "https:\(current.condition.icon)")) {
                 image in
@@ -245,23 +295,30 @@ struct HomeView: View {
             } placeholder: {
                 ProgressView().tint(Color.theme(.primaryText))
             }
-            .frame(width: 140, height: 140)
-            .shadow(color: Color.theme(.background).opacity(0.2), radius: 10)
+            .frame(width: 100, height: 100)
+            .shadow(color: Color.theme(.background).opacity(0.1), radius: 8)
 
-            Text(
-                "\(Int(settings.isFahrenheit ? current.tempF : current.tempC))°"
-            )
-            .font(.system(size: 90, weight: .thin, design: .rounded))
-
-            Text(current.condition.text)
-                .font(.title2)
-                .fontWeight(.medium)
-                .opacity(0.8)
+            VStack(spacing: 0) {
+                Text(
+                    "\(Int(settings.isFahrenheit ? current.tempF : current.tempC))°"
+                )
+                .font(.system(size: 72, weight: .thin, design: .rounded))
+                
+                Text(current.condition.text)
+                    .font(.headline)
+                    .fontWeight(.medium)
+                    .opacity(0.9)
+                
+                Text("Feels like \(Int(settings.isFahrenheit ? current.feelslikeF : current.feelslikeC))°")
+                    .font(.caption)
+                    .opacity(0.6)
+                    .padding(.top, 2)
+            }
         }
         .foregroundColor(Color.theme(.primaryText))
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 40)
-        .glassEffect(cornerRadius: 35)
+        .padding(.vertical, 24)
+        .glassEffect(cornerRadius: 30)
     }
 
     private func detailsGrid(current: Current) -> some View {

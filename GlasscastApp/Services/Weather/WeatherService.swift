@@ -23,11 +23,12 @@ final class WeatherService: WeatherServiceProtocol {
         let queryParams = [
             "key": apiKey,
             "q": city,
-            "aqi": "no",
+            "days": "5",
+            "aqi": "no"
         ]
-
+        
         return try await networkService.request(
-            path: "/current.json",
+            path: "/forecast.json",
             method: .GET,
             queryParameters: queryParams,
             responseType: WeatherResponse.self

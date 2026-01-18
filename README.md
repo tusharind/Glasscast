@@ -34,17 +34,18 @@ Built using **SwiftUI**, **Supabase**, and **WeatherAPI**, Glasscast offers a se
    cd GlasscastApp
    ```
 
-2. **Configure Secrets**:
-   Create a file named `Secrets.swift` in `GlasscastApp/Core/` (this file is ignored by Git). Add your credentials as follows:
+2. **Configuration**:
+   The application comes pre-configured with the **Supabase** environment (URL and Anon key) so reviewers can immediately test authentication and favorites.
+
+   For **Weather Data**, you must provide your own WeatherAPI key by creating a file at `GlasscastApp/Core/Secrets.swift`:
    ```swift
    import Foundation
 
    enum Secrets {
        static let weatherAPIKey = "YOUR_WEATHER_API_KEY"
-       static let supabaseAnonKey = "YOUR_SUPABASE_ANON_KEY"
-       static let supabaseURL = "https://your-project.supabase.co"
    }
    ```
+   *Note: This file is ignored by Git to keep the primary developer's key private.*
 
 3. **Supabase Database Setup**:
    Ensure you have a table named `favourite_cities` (British spelling) with the following schema:

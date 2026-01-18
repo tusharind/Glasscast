@@ -12,10 +12,10 @@ struct NetworkConfig {
     )
 
     static let supabase = NetworkConfig(
-        baseURL: Secrets.supabaseURL,
+        baseURL: AppConfig.supabaseURL,
         headers: [
-            "apikey": Secrets.supabaseAnonKey,
-            "Authorization": "Bearer \(Secrets.supabaseAnonKey)"
+            "apikey": AppConfig.supabaseAnonKey,
+            "Authorization": "Bearer \(AppConfig.supabaseAnonKey)"
         ],
         timeout: 30
     )

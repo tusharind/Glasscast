@@ -4,6 +4,60 @@ import Foundation
 struct WeatherResponse: Codable {
     let location: Location
     let current: Current
+    let forecast: Forecast?
+}
+
+// MARK: - Forecast
+struct Forecast: Codable {
+    let forecastday: [ForecastDay]
+}
+
+struct ForecastDay: Codable, Identifiable {
+    var id: String { date }
+    let date: String
+    let dateEpoch: Int
+    let day: Day
+    
+    enum CodingKeys: String, CodingKey {
+        case date
+        case dateEpoch = "date_epoch"
+        case day
+    }
+}
+
+struct Day: Codable {
+    let maxtempC, maxtempF: Double
+    let mintempC, mintempF: Double
+    let avgtempC, avgtempF: Double
+    let maxwindMph, maxwindKph: Double
+    let totalprecipMm, totalprecipIn: Double
+    let avgvisKm, avgvisMiles: Double
+    let avghumidity: Double
+    let dailyWillItRain, dailyChanceOfRain: Int
+    let dailyWillItSnow, dailyChanceOfSnow: Int
+    let condition: Condition
+    let uv: Double
+
+    enum CodingKeys: String, CodingKey {
+        case maxtempC = "maxtemp_c"
+        case maxtempF = "maxtemp_f"
+        case mintempC = "mintemp_c"
+        case mintempF = "mintemp_f"
+        case avgtempC = "avgtemp_c"
+        case avgtempF = "avgtemp_f"
+        case maxwindMph = "maxwind_mph"
+        case maxwindKph = "maxwind_kph"
+        case totalprecipMm = "totalprecip_mm"
+        case totalprecipIn = "totalprecip_in"
+        case avgvisKm = "avgvis_km"
+        case avgvisMiles = "avgvis_miles"
+        case avghumidity
+        case dailyWillItRain = "daily_will_it_rain"
+        case dailyChanceOfRain = "daily_chance_of_rain"
+        case dailyWillItSnow = "daily_will_it_snow"
+        case dailyChanceOfSnow = "daily_chance_of_snow"
+        case condition, uv
+    }
 }
 
 // MARK: - Current Weather
@@ -80,5 +134,38 @@ struct Location: Codable {
         case tzID = "tz_id"
         case localtimeEpoch = "localtime_epoch"
         case localtime
+    }
+}
+
+// MARK: - Extensions
+extension Condition {
+    var symbolName: String {
+        switch code {
+        case 1000: return "sun.max.fill" // Sunny
+        case 1003: return "cloud.sun.fill" // Partly cloudy
+        case 1006, 1009: return "cloud.fill" // Cloudy/Overcast
+        case 1030, 1135, 1147: return "cloud.fog.fill" // Mist/Fog
+        case 1063, 1180, 1183, 1186, 1189, 1192, 1195, 1240, 1243: return "cloud.rain.fill" // Rain
+        case 1066, 1114, 1210, 1213, 1216, 1219, 1222, 1225, 1255, 1258: return "cloud.snow.fill" // Snow
+        case 1069, 1072, 1168, 1171, 1204, 1207, 1237, 1249, 1252, 1261, 1264: return "cloud.sleet.fill" // Sleet
+        case 1087, 1273, 1276, 1279, 1282: return "cloud.bolt.rain.fill" // Thunderstorm
+        default: return "cloud.sun.fill"
+        }
+    }
+}
+
+extension String {
+    func toDate(format: String = "yyyy-MM-dd") -> Date? {
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        return formatter.date(from: self)
+    }
+}
+
+extension Date {
+    func dayOfWeek() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEE"
+        return formatter.string(from: self)
     }
 }
