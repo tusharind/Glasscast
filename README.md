@@ -1,16 +1,16 @@
-# Glasscast 🧊
+# Glasscast
 
-**Glasscast** is a premium, AI-first weather application built with a focus on modern iOS design aesthetics—specifically the **Liquid Glass** system introduced in iOS 26. 
+Glasscast is a premium, AI-first weather application built with a focus on modern iOS design aesthetics—specifically the Liquid Glass system introduced in iOS 26. 
 
-Built using **SwiftUI**, **Supabase**, and **WeatherAPI**, Glasscast offers a seamless experience for checking weather, managing favorite cities, and maintaining a secure personal account.
+Built using SwiftUI, Supabase, and WeatherAPI, Glasscast offers a seamless experience for checking weather, managing favorite cities, and maintaining a secure personal account.
 
 ---
 
-## ✨ Features
+## Features
 
 - **Liquid Glass Design**: Full implementation of glassmorphism with translucency, depth, and vibrant ambient light effects.
 - **AI-First Development**: Developed entirely using agentic AI workflows (Claude Code/Cursor), demonstrating high-level iteration and prompt engineering.
-- **Secure Authentication**: Powerded by Supabase Auth with custom glassmorphic login/signup flows.
+- **Secure Authentication**: Powered by Supabase Auth with custom glassmorphic login/signup flows.
 - **Real-time Weather**: Current weather data and details (Wind, Humidity, UV, Visibility) via WeatherAPI.
 - **City Search**: Dynamic search capabilities to check weather anywhere in the world.
 - **Cloud Favorites**: Save and sync your favorite cities to your Supabase account.
@@ -18,7 +18,7 @@ Built using **SwiftUI**, **Supabase**, and **WeatherAPI**, Glasscast offers a se
 
 ---
 
-## 🛠️ Setup Instructions
+## Setup Instructions
 
 ### Prerequisites
 - Xcode 17.0+
@@ -35,9 +35,9 @@ Built using **SwiftUI**, **Supabase**, and **WeatherAPI**, Glasscast offers a se
    ```
 
 2. **Configuration**:
-   The application comes pre-configured with the **Supabase** environment (URL and Anon key) so reviewers can immediately test authentication and favorites.
+   The application comes pre-configured with the Supabase environment (URL and Anon key) so reviewers can immediately test authentication and favorites.
 
-   For **Weather Data**, you must provide your own WeatherAPI key by creating a file at `GlasscastApp/Core/Secrets.swift`:
+   For Weather Data, you must provide your own WeatherAPI key by creating a file at `GlasscastApp/Core/Secrets.swift`:
    ```swift
    import Foundation
 
@@ -61,9 +61,9 @@ Built using **SwiftUI**, **Supabase**, and **WeatherAPI**, Glasscast offers a se
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
-The project follows the **MVVM (Model-View-ViewModel)** architectural pattern for clean separation of concerns:
+The project follows the MVVM (Model-View-ViewModel) architectural pattern for clean separation of concerns:
 
 - **Models**: Decodable API response structures.
 - **Views**: SwiftUI-based modular UI components using the `GlassModifier`.
@@ -73,24 +73,50 @@ The project follows the **MVVM (Model-View-ViewModel)** architectural pattern fo
 
 ---
 
-## 🤖 AI Workflow
+## AI Workflow
 
-This project was developed using an **AI-First** methodology. 
+This project was developed using an AI-First methodology. 
 - **Tooling**: Claude Code / Cursor.
-- **Context**: Guided by `CLAUDE.md` and `Reference.txt`.
 - **Iteration**: Multi-agent task breakdown and iterative debugging (e.g., handling Supabase RLS and decoding mismatches).
 
 ---
 
-## 📸 Screenshots
+## Screenshots
 
 | Login Screen | Home (Weather) |
 |---|---|
 | ![Login Screen](./GlasscastApp/Screenshots/login.png) | ![Home Screen](./GlasscastApp/Screenshots/home.png) |
 
+---
 
+## Contributing
+
+Contributions are welcome! If you have ideas for new glassmorphic components, better AI integrations, or bug fixes, please follow these guidelines:
+
+### Reporting Bugs
+- Use the GitHub Issue Tracker.
+- Check if the bug has already been reported.
+- Include steps to reproduce and screenshots if possible.
+
+### Suggesting Enhancements
+- Open an issue with the "enhancement" tag.
+- Explain why this feature would be useful and how it fits the Liquid Glass aesthetic.
+
+### Pull Requests
+1. Fork the repo and create your branch from `main`.
+2. Ensure your code follows the existing MVVM architecture.
+3. If you've added a new feature, update the README.md if necessary.
+4. Ensure the app builds and runs without errors.
+5. Issue a PR with a clear description of your changes.
+
+### Design Guidelines
+Glasscast is strictly built on the Liquid Glass system. 
+- Use `Theme.AppColor` and `Theme.AppGradient` for all styling.
+- Prefer SF Symbols with `.multicolor` or `.hierarchical` rendering modes.
+- Keep the blur and translucency consistent with existing `glassEffect` modifiers.
 
 ---
 
-## 📄 License
-This project is part of a technical assignment. All rights reserved.
+## License
+
+This project is licensed under the [MIT License](./LICENSE). Feel free to use it as a reference for your own glassmorphic SwiftUI projects.
